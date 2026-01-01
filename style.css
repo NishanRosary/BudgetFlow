@@ -1,0 +1,385 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4f46e5;
+    --income-color: #10b981;
+    --expense-color: #ef4444;
+    --balance-color: #6366f1;
+    --card-bg: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --border-radius: 0.75rem;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Card Styles */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 1.5rem;
+}
+
+/* Dashboard */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard .card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.dashboard h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dashboard .amount {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.balance-card {
+    background: linear-gradient(135deg, var(--balance-color) 0%, #818cf8 100%);
+    color: white;
+}
+
+.balance-card h3,
+.balance-card .amount {
+    color: white;
+}
+
+.income-card {
+    border-top: 4px solid var(--income-color);
+}
+
+.expense-card {
+    border-top: 4px solid var(--expense-color);
+}
+
+.income-text {
+    color: var(--income-color);
+}
+
+.expense-text {
+    color: var(--expense-color);
+}
+
+/* Month Selector */
+.month-selector {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.month-selector label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.month-selector input[type="month"] {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.month-selector input[type="month"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Form Styles */
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-card h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: var(--text-secondary);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+.btn-danger {
+    background: var(--expense-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+/* History Section */
+.history-section {
+    margin-bottom: 2rem;
+}
+
+.history-card h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f9fafb;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.type-badge.income {
+    background: #d1fae5;
+    color: var(--income-color);
+}
+
+.type-badge.expense {
+    background: #fee2e2;
+    color: var(--expense-color);
+}
+
+.amount-cell {
+    font-weight: 600;
+}
+
+.amount-cell.income {
+    color: var(--income-color);
+}
+
+.amount-cell.expense {
+    color: var(--expense-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .dashboard .amount {
+        font-size: 1.75rem;
+    }
+
+    .month-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .month-selector label {
+        margin-bottom: 0.5rem;
+    }
+
+    .month-selector input[type="month"],
+    .btn-secondary {
+        width: 100%;
+    }
+
+    table {
+        font-size: 0.875rem;
+    }
+
+    th,
+    td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    /* Hide "Date" column on very small screens, show "Action" as icon */
+    @media (max-width: 480px) {
+        th:nth-child(1),
+        td:nth-child(1) {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 1rem;
+    }
+
+    .dashboard .card {
+        padding: 1.5rem 1rem;
+    }
+}
+

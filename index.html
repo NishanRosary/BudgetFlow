@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income & Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Income & Expense Tracker</h1>
+            <p class="subtitle">Track your finances effortlessly</p>
+        </header>
+
+        <!-- Dashboard Cards -->
+        <section class="dashboard">
+            <div class="card balance-card">
+                <h3>Current Balance</h3>
+                <p class="amount" id="balance">₹0.00</p>
+            </div>
+            <div class="card income-card">
+                <h3>Total Income</h3>
+                <p class="amount income-text" id="totalIncome">₹0.00</p>
+            </div>
+            <div class="card expense-card">
+                <h3>Total Expense</h3>
+                <p class="amount expense-text" id="totalExpense">₹0.00</p>
+            </div>
+        </section>
+
+        <!-- Month Selector -->
+        <section class="month-selector">
+            <label for="monthFilter">Filter by Month:</label>
+            <input type="month" id="monthFilter" />
+            <button class="btn btn-secondary" id="clearFilter">Show All</button>
+        </section>
+
+        <!-- Add Transaction Form -->
+        <section class="form-section">
+            <div class="card form-card">
+                <h2>Add Transaction</h2>
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label for="amount">Amount (₹)</label>
+                        <input type="number" id="amount" step="0.01" min="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select id="type" required>
+                            <option value="">Select Type</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reason">Reason</label>
+                        <input type="text" id="reason" placeholder="e.g., Salary, Groceries, Rent" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Transaction History -->
+        <section class="history-section">
+            <div class="card history-card">
+                <h2>Transaction History</h2>
+                
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state">
+                    <p>📋 No transactions yet. Add your first transaction above!</p>
+                </div>
+
+                <!-- Transaction Table -->
+                <div id="tableContainer" class="table-container" style="display: none;">
+                    <table id="transactionTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Reason</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
