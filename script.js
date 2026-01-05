@@ -209,6 +209,165 @@ clearFilterBtn.addEventListener('click', () => {
     renderTransactions();
 });
 
+
+// -- Income Grouping Feature Logic --
+
+// Toggle between standard history and income analysis view
+function toggleIncomeAnalysisView() {
+    const historySection = document.getElementById('historySection');
+    const incomeAnalysisSection = document.getElementById('incomeAnalysis');
+    const toggleBtn = document.getElementById('toggleAnalysisBtn');
+    
+    if (incomeAnalysisSection.style.display === 'none') {
+        renderIncomeGroups();
+        historySection.style.display = 'none';
+        incomeAnalysisSection.style.display = 'block';
+        toggleBtn.textContent = 'Back to history';
+    } else {
+        historySection.style.display = 'block';
+        incomeAnalysisSection.style.display = 'none';
+        toggleBtn.textContent = 'View Income Groups';
+    }
+}
+
+// Calculate groups of expenses based on preceding income
+function calculateIncomeGroups() {
+    // 1. Sort transactions by Date ASC (Oldest first) so we can flow through time
+    // If dates are equal, we can use ID as secondary sort if needed, or assume entry order
+    const sorted = [...transactions].sort((a, b) => {
+       const dateA = new Date(a.date);
+       const dateB = new Date(b.date);
+       if(dateA - dateB !== 0) return dateA - dateB;
+       return a.id - b.id; // Secondary sort by creation time
+    });
+
+    const groups = [];
+    
+    // Initial group for expenses before any income
+    let currentGroup = {
+        income: null, // No source income yet
+        expenses: [],
+        totalExpense: 0,
+        remaining: 0
+    };
+    
+    // We only add the initial group if it has content used
+    let isInitialGroupUsed = false;
+
+    sorted.forEach(transaction => {
+        if (transaction.type === 'income') {
+            // Push the previous group if valid
+            if (currentGroup.income || isInitialGroupUsed) {
+                groups.push(currentGroup);
+            }
+            
+            // Start a new group
+            currentGroup = {
+                income: transaction,
+                expenses: [],
+                totalExpense: 0,
+                remaining: parseFloat(transaction.amount)
+            };
+            
+        } else if (transaction.type === 'expense') {
+            const amount = parseFloat(transaction.amount);
+            currentGroup.expenses.push(transaction);
+            currentGroup.totalExpense += amount;
+            
+            // If there's an income source, subtract from it. 
+            // If it's the initial "no income" group, remaining becomes negative.
+            if (currentGroup.income) {
+                currentGroup.remaining -= amount;
+            } else {
+                currentGroup.remaining -= amount;
+                isInitialGroupUsed = true;
+            }
+        }
+    });
+
+    // Push the final group
+    if (currentGroup.income || (currentGroup === groups[0] && isInitialGroupUsed)) {
+        groups.push(currentGroup);
+    }
+    
+    // Return reversed groups (newest income block first)
+    return groups.reverse(); 
+}
+
+// Render the income groups UI
+function renderIncomeGroups() {
+    const container = document.getElementById('analysisContainer');
+    const groups = calculateIncomeGroups();
+    
+    container.innerHTML = '';
+    
+    if (groups.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500">No data available for analysis.</p>';
+        return;
+    }
+
+    groups.forEach(group => {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = `analysis-group ${group.income ? '' : 'initial-expense'}`;
+        
+        // Header
+        let headerHtml = '';
+        if (group.income) {
+            headerHtml = `
+                <div class="group-header">
+                    <h3>
+                        Income: ${group.income.reason} 
+                        <span style="font-size: 0.9em; color: #6b7280; font-weight: normal;">
+                            (${formatDate(group.income.date)})
+                        </span>
+                    </h3>
+                    <span class="income-amount">${formatCurrency(parseFloat(group.income.amount))}</span>
+                </div>
+            `;
+        } else {
+            headerHtml = `
+                <div class="group-header">
+                    <h3 style="color: var(--text-secondary);">Previous Expenses (Before any income)</h3>
+                    <span class="income-amount" style="color: var(--text-secondary);">--</span>
+                </div>
+            `;
+        } // Expenses List
+        let expensesHtml = '<div class="group-expenses-list">';
+        if (group.expenses.length > 0) {
+            group.expenses.forEach(exp => {
+                expensesHtml += `
+                    <div class="expense-item">
+                        <span class="expense-reason">${exp.reason} (${formatDate(exp.date)})</span>
+                        <span class="expense-amount">-${formatCurrency(parseFloat(exp.amount))}</span>
+                    </div>
+                `;
+            });
+        } else {
+            expensesHtml += '<p style="font-size: 0.9rem; color: #9ca3af; font-style: italic;">No expenses recorded.</p>';
+        }
+        expensesHtml += '</div>';
+
+        // Summary Footer
+        const balanceClass = group.remaining >= 0 ? 'balance-positive' : 'balance-negative';
+        
+        const summaryHtml = `
+            <div class="group-summary">
+                <div class="summary-item">
+                    <span class="label">Total Spent:</span>
+                    <span class="value" style="color: var(--expense-color);">${formatCurrency(group.totalExpense)}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Remaining:</span>
+                    <span class="value ${balanceClass}">${formatCurrency(group.remaining)}</span>
+                </div>
+            </div>
+        `;
+
+        groupDiv.innerHTML = headerHtml + expensesHtml + summaryHtml;
+        container.appendChild(groupDiv);
+    });
+}
+
 // Initialize app
 loadTransactions();
 

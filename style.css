@@ -383,3 +383,104 @@ tbody tr:last-child td {
     }
 }
 
+/* Income Analysis Section */
+.income-analysis-section {
+    margin-bottom: 2rem;
+}
+
+.analysis-group {
+    background: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--income-color);
+}
+
+.analysis-group.initial-expense {
+    border-left-color: var(--text-secondary);
+}
+
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.group-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.group-header .income-amount {
+    font-weight: 700;
+    color: var(--income-color);
+}
+
+.group-expenses-list {
+    margin-bottom: 1rem;
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.expense-item:last-child {
+    border-bottom: none;
+}
+
+.expense-item .expense-reason {
+    color: var(--text-secondary);
+}
+
+.expense-item .expense-amount {
+    color: var(--expense-color);
+    font-weight: 600;
+}
+
+.group-summary {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.group-summary .summary-item {
+    font-size: 0.9rem;
+}
+
+.group-summary .label {
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+.group-summary .value {
+    font-weight: 700;
+}
+
+.value.balance-positive {
+    color: var(--income-color);
+}
+
+.value.balance-negative {
+    color: var(--expense-color);
+}
+
+.btn-info {
+    background: #0ea5e9;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #0284c7;
+}
+

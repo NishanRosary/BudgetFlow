@@ -34,6 +34,17 @@
             <label for="monthFilter">Filter by Month:</label>
             <input type="month" id="monthFilter" />
             <button class="btn btn-secondary" id="clearFilter">Show All</button>
+            <button class="btn btn-info" id="toggleAnalysisBtn" onclick="toggleIncomeAnalysisView()">View Income Groups</button>
+        </section>
+
+        <!-- Income Analysis Section (Hidden by default) -->
+        <section id="incomeAnalysis" class="income-analysis-section" style="display: none;">
+            <div class="card analysis-card">
+                <h2>Income Analysis</h2>
+                <div id="analysisContainer">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
         </section>
 
         <!-- Add Transaction Form -->
@@ -71,7 +82,7 @@
         </section>
 
         <!-- Transaction History -->
-        <section class="history-section">
+        <section class="history-section" id="historySection">
             <div class="card history-card">
                 <h2>Transaction History</h2>
                 
