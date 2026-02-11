@@ -1,7 +1,7 @@
 # Family Member Profiles Feature - Implementation Summary
 
 ## 📋 Overview
-Successfully implemented the **Family Member Profiles** feature for the Income & Expense Tracker application. This feature allows multiple family members to have separate income and expense tracking data while maintaining full backward compatibility with existing data.
+Successfully implemented the **Family Member Profiles** feature for the BudgetFlow application. This feature allows multiple family members to have separate income and expense tracking data while maintaining full backward compatibility with existing data.
 
 ## ✅ Completed Deliverables
 
