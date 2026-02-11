@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income & Expense Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1>💰 Income & Expense Tracker</h1>
+            <h1> BUDGETFLOW </h1>
             <p class="subtitle">Track your finances effortlessly</p>
         </header>
 
@@ -34,7 +36,8 @@
             <label for="monthFilter">Filter by Month:</label>
             <input type="month" id="monthFilter" />
             <button class="btn btn-secondary" id="clearFilter">Show All</button>
-            <button class="btn btn-info" id="toggleAnalysisBtn" onclick="toggleIncomeAnalysisView()">View Income Groups</button>
+            <button class="btn btn-info" id="toggleAnalysisBtn" onclick="toggleIncomeAnalysisView()">View Income
+                Groups</button>
         </section>
 
         <!-- Income Analysis Section (Hidden by default) -->
@@ -85,7 +88,7 @@
         <section class="history-section" id="historySection">
             <div class="card history-card">
                 <h2>Transaction History</h2>
-                
+
                 <!-- Empty State -->
                 <div id="emptyState" class="empty-state">
                     <p>📋 No transactions yet. Add your first transaction above!</p>
@@ -113,5 +116,5 @@
 
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>
