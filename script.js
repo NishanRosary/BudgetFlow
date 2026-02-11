@@ -1,6 +1,10 @@
 // Transaction Data Storage
 let transactions = [];
 
+// Family Member Management
+let currentMemberId = 'default'; // Current selected member
+let customMembers = {}; // Store custom member names { id: displayName }
+
 // DOM Elements
 const transactionForm = document.getElementById('transactionForm');
 const transactionBody = document.getElementById('transactionBody');
@@ -13,6 +17,13 @@ const totalExpenseEl = document.getElementById('totalExpense');
 const monthFilter = document.getElementById('monthFilter');
 const clearFilterBtn = document.getElementById('clearFilter');
 
+// Family Member DOM Elements
+const memberSelect = document.getElementById('memberSelect');
+const customMemberGroup = document.getElementById('customMemberGroup');
+const customMemberName = document.getElementById('customMemberName');
+const addCustomMemberBtn = document.getElementById('addCustomMemberBtn');
+const currentMemberDisplay = document.getElementById('currentMemberDisplay');
+
 // Initialize date input with today's date
 document.getElementById('date').valueAsDate = new Date();
 
@@ -21,14 +32,112 @@ function loadTransactions() {
     const storedTransactions = localStorage.getItem('transactions');
     if (storedTransactions) {
         transactions = JSON.parse(storedTransactions);
+        
+        // Migration: Add memberId to existing transactions (backward compatibility)
+        let needsMigration = false;
+        transactions = transactions.map(transaction => {
+            if (!transaction.memberId) {
+                needsMigration = true;
+                return { ...transaction, memberId: 'default' };
+            }
+            return transaction;
+        });
+        
+        // Save migrated data
+        if (needsMigration) {
+            saveTransactions();
+        }
     }
+    
+    // Load custom members
+    const storedCustomMembers = localStorage.getItem('customMembers');
+    if (storedCustomMembers) {
+        customMembers = JSON.parse(storedCustomMembers);
+        populateCustomMembersInDropdown();
+    }
+    
+    // Load last selected member
+    const storedMemberId = localStorage.getItem('currentMemberId');
+    if (storedMemberId) {
+        currentMemberId = storedMemberId;
+        memberSelect.value = storedMemberId;
+        updateCurrentMemberDisplay();
+    }
+    
     renderTransactions();
-    updateDashboard();
 }
 
 // Save transactions to localStorage
 function saveTransactions() {
     localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+// Save custom members to localStorage
+function saveCustomMembers() {
+    localStorage.setItem('customMembers', JSON.stringify(customMembers));
+}
+
+// Save current member selection
+function saveCurrentMember() {
+    localStorage.setItem('currentMemberId', currentMemberId);
+}
+
+// Get member display name
+function getMemberDisplayName(memberId) {
+    const predefinedMembers = {
+        'default': 'All Members (Default)',
+        'mom': 'Mom',
+        'dad': 'Dad',
+        'sister': 'Sister',
+        'brother': 'Brother',
+        'grandma': 'Grandma',
+        'grandpa': 'Grandpa'
+    };
+    
+    if (predefinedMembers[memberId]) {
+        return predefinedMembers[memberId];
+    }
+    
+    // Check custom members
+    if (customMembers[memberId]) {
+        return customMembers[memberId];
+    }
+    
+    return memberId;
+}
+
+// Get transactions for current member
+function getCurrentMemberTransactions() {
+    if (currentMemberId === 'default') {
+        return transactions; // Show all transactions
+    }
+    return transactions.filter(t => t.memberId === currentMemberId);
+}
+
+// Update current member display
+function updateCurrentMemberDisplay() {
+    const displayName = getMemberDisplayName(currentMemberId);
+    currentMemberDisplay.textContent = displayName;
+}
+
+// Populate custom members in dropdown
+function populateCustomMembersInDropdown() {
+    // Remove existing custom member options (except "other")
+    const options = Array.from(memberSelect.options);
+    options.forEach(option => {
+        if (option.value !== 'other' && !['default', 'mom', 'dad', 'sister', 'brother', 'grandma', 'grandpa'].includes(option.value)) {
+            option.remove();
+        }
+    });
+    
+    // Add custom members before "other" option
+    const otherOption = memberSelect.querySelector('option[value="other"]');
+    Object.keys(customMembers).forEach(memberId => {
+        const option = document.createElement('option');
+        option.value = memberId;
+        option.textContent = customMembers[memberId];
+        memberSelect.insertBefore(option, otherOption);
+    });
 }
 
 // Format currency (Indian Rupees)
@@ -82,14 +191,18 @@ function updateDashboard(filteredTransactions = null) {
     }
 }
 
-// Get filtered transactions based on selected month
+// Get filtered transactions based on selected month and member
 function getFilteredTransactions() {
+    // First filter by member
+    const memberTransactions = getCurrentMemberTransactions();
+    
+    // Then filter by month if selected
     const selectedMonth = monthFilter.value;
     if (!selectedMonth) {
-        return transactions;
+        return memberTransactions;
     }
 
-    return transactions.filter(transaction => {
+    return memberTransactions.filter(transaction => {
         const transactionDate = new Date(transaction.date);
         const transactionMonth = `${transactionDate.getFullYear()}-${String(transactionDate.getMonth() + 1).padStart(2, '0')}`;
         return transactionMonth === selectedMonth;
@@ -142,6 +255,9 @@ function renderTransactions() {
 function addTransaction(transaction) {
     // Generate unique ID
     transaction.id = Date.now();
+    
+    // Assign current member ID
+    transaction.memberId = currentMemberId;
     
     transactions.push(transaction);
     saveTransactions();
@@ -366,6 +482,82 @@ function renderIncomeGroups() {
         groupDiv.innerHTML = headerHtml + expensesHtml + summaryHtml;
         container.appendChild(groupDiv);
     });
+}
+
+// ===== FAMILY MEMBER EVENT LISTENERS =====
+
+// Handle member selection change
+// We use a try-catch block to ensure any potential DOM errors are caught
+try {
+    if (memberSelect) {
+        memberSelect.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            
+            if (selectedValue === 'other') {
+                // Show custom member input
+                customMemberGroup.style.display = 'block';
+                customMemberName.focus();
+            } else {
+                // Hide custom member input
+                customMemberGroup.style.display = 'none';
+                
+                // Update current member
+                currentMemberId = selectedValue;
+                saveCurrentMember();
+                updateCurrentMemberDisplay();
+                
+                // Refresh data - this will call updateDashboard internally with correct filtered values
+                renderTransactions();
+            }
+        });
+    }
+
+    // Handle adding custom member
+    if (addCustomMemberBtn) {
+        addCustomMemberBtn.addEventListener('click', () => {
+            const customName = customMemberName.value.trim();
+            
+            if (!customName) {
+                alert('Please enter a member name');
+                return;
+            }
+            
+            // Generate unique ID for custom member
+            const customId = 'custom_' + Date.now();
+            
+            // Save custom member
+            customMembers[customId] = customName;
+            saveCustomMembers();
+            
+            // Add to dropdown
+            populateCustomMembersInDropdown();
+            
+            // Select the new member
+            memberSelect.value = customId;
+            currentMemberId = customId;
+            saveCurrentMember();
+            updateCurrentMemberDisplay();
+            
+            // Hide custom input and clear
+            customMemberGroup.style.display = 'none';
+            customMemberName.value = '';
+            
+            // Refresh data
+            renderTransactions();
+        });
+    }
+
+    // Allow Enter key to add custom member
+    if (customMemberName) {
+        customMemberName.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCustomMemberBtn.click();
+            }
+        });
+    }
+} catch (error) {
+    console.error('Error initializing family member listeners:', error);
 }
 
 // Initialize app

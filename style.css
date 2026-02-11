@@ -51,13 +51,80 @@ header h1 {
     opacity: 0.9;
 }
 
-/* Card Styles */
 .card {
     background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     box-shadow: var(--shadow-lg);
     margin-bottom: 1.5rem;
+}
+
+/* Family Member Selector */
+.member-selector-section {
+    margin-bottom: 2rem;
+}
+
+.member-selector-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border: 2px solid var(--border-color);
+}
+
+.member-selector-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.member-selector-header h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.member-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.member-selector-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.custom-member-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.custom-member-input-group input {
+    flex: 1;
+}
+
+.custom-member-input-group .btn {
+    width: auto;
+    padding: 0.75rem 1.5rem;
+}
+
+.current-member-display {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: white;
+}
+
+.current-member-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-right: 0.5rem;
+}
+
+.current-member-name {
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 /* Dashboard */
@@ -355,6 +422,15 @@ tbody tr:last-child td {
         width: 100%;
     }
 
+    .member-selector-header h3 {
+        font-size: 1.25rem;
+    }
+
+    .current-member-display {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
     table {
         font-size: 0.875rem;
     }
@@ -366,6 +442,7 @@ tbody tr:last-child td {
 
     /* Hide "Date" column on very small screens, show "Action" as icon */
     @media (max-width: 480px) {
+
         th:nth-child(1),
         td:nth-child(1) {
             display: none;
@@ -483,4 +560,3 @@ tbody tr:last-child td {
 .btn-info:hover {
     background: #0284c7;
 }
-
