@@ -8,49 +8,113 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1 class="brand-title"> BudgetFlow </h1>
-            <p class="subtitle">Track your finances effortlessly</p>
-        </header>
+    <!-- Navigation -->
+    <nav class="navbar container">
+        <div class="brand">
+            <i data-lucide="wallet" class="brand-icon"></i>
+            <span class="brand-name">BudgetFlow</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Manage Your Family Finances with <span class="gradient-text">Clarity.</span>
+            </h1>
+            <p class="hero-subtext">
+                Track income, expenses, and savings for every family member in one beautiful dashboard. Simple, secure,
+                and smart.
+            </p>
+            <a href="#trackerApp" class="btn btn-cta">
+                Start Tracking <i data-lucide="arrow-right" class="icon-sm"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Feature Cards -->
+    <section class="features-section container">
+        <div class="feature-card">
+            <div class="icon-container icon-blue">
+                <i data-lucide="users"></i>
+            </div>
+            <h3>Multi-Member Budgeting</h3>
+            <p>Separate tracking for Mom, Dad, and Kids with instant switching.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon-container icon-green">
+                <i data-lucide="pie-chart"></i>
+            </div>
+            <h3>Smart Analysis</h3>
+            <p>Visual breakdown of income streams and spending habits.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon-container icon-purple">
+                <i data-lucide="trending-up"></i>
+            </div>
+            <h3>Income-Based Insights</h3>
+            <p>Group expenses automatically by their funding source.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon-container icon-orange">
+                <i data-lucide="history"></i>
+            </div>
+            <h3>Full History</h3>
+            <p>Searchable transaction logs with monthly filtering.</p>
+        </div>
+    </section>
+
+    <!-- Main App Interface -->
+    <div id="trackerApp" class="app-container container">
+
+        <div class="section-title-wrapper">
+            <h2>Your Dashboard</h2>
+            <p>Overview of current financial status</p>
+        </div>
+
 
         <!-- Family Member Selector -->
         <section class="member-selector-section">
             <div class="card member-selector-card">
                 <div class="member-selector-header">
-                    <h3>👤 Family Member</h3>
-                    <p class="member-subtitle">Select a family member to track their finances</p>
+                    <h3><i data-lucide="user-check" class="icon-inline"></i> Family Member</h3>
+                    <p class="member-subtitle">Select a profile to manage</p>
                 </div>
                 <div class="member-selector-controls">
                     <div class="form-group">
-                        <label for="memberSelect">Select Member:</label>
-                        <select id="memberSelect">
-                            <option value="default">All Members (Default)</option>
-                            <option value="mom">Mom</option>
-                            <option value="dad">Dad</option>
-                            <option value="sister">Sister</option>
-                            <option value="brother">Brother</option>
-                            <option value="grandma">Grandma</option>
-                            <option value="grandpa">Grandpa</option>
-                            <option value="other">Other (Custom Name)</option>
-                        </select>
+                        <label for="memberSelect">Select Profile</label>
+                        <div class="select-wrapper">
+                            <select id="memberSelect" class="modern-select">
+                                <option value="default">All Members (Default)</option>
+                                <option value="mom">Mom</option>
+                                <option value="dad">Dad</option>
+                                <option value="sister">Sister</option>
+                                <option value="brother">Brother</option>
+                                <option value="grandma">Grandma</option>
+                                <option value="grandpa">Grandpa</option>
+                                <option value="other">Other (Custom Name)</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="select-icon"></i>
+                        </div>
                     </div>
                     <div class="form-group" id="customMemberGroup" style="display: none;">
-                        <label for="customMemberName">Custom Member Name:</label>
+                        <label for="customMemberName">Custom Name</label>
                         <div class="custom-member-input-group">
-                            <input type="text" id="customMemberName" placeholder="Enter custom name" maxlength="30">
-                            <button class="btn btn-primary" id="addCustomMemberBtn">Add</button>
+                            <input type="text" id="customMemberName" placeholder="e.g. Vacation Fund" maxlength="30">
+                            <button class="btn btn-primary" id="addCustomMemberBtn">Add Profile</button>
                         </div>
                     </div>
                 </div>
                 <div class="current-member-display">
-                    <span class="current-member-label">Currently Viewing:</span>
+                    <span class="current-member-label">Active Profile:</span>
                     <span class="current-member-name" id="currentMemberDisplay">All Members (Default)</span>
                 </div>
             </div>
@@ -59,102 +123,141 @@
         <!-- Dashboard Cards -->
         <section class="dashboard">
             <div class="card balance-card">
-                <h3>Current Balance</h3>
+                <div class="card-header">
+                    <h3>Current Balance</h3>
+                    <i data-lucide="wallet" class="card-icon"></i>
+                </div>
                 <p class="amount" id="balance">₹0.00</p>
             </div>
             <div class="card income-card">
-                <h3>Total Income</h3>
+                <div class="card-header">
+                    <h3>Total Income</h3>
+                    <i data-lucide="arrow-down-circle" class="card-icon"></i>
+                </div>
                 <p class="amount income-text" id="totalIncome">₹0.00</p>
             </div>
             <div class="card expense-card">
-                <h3>Total Expense</h3>
+                <div class="card-header">
+                    <h3>Total Expense</h3>
+                    <i data-lucide="arrow-up-circle" class="card-icon"></i>
+                </div>
                 <p class="amount expense-text" id="totalExpense">₹0.00</p>
             </div>
         </section>
 
         <!-- Month Selector -->
         <section class="month-selector">
-            <label for="monthFilter">Filter by Month:</label>
-            <input type="month" id="monthFilter" />
-            <button class="btn btn-secondary" id="clearFilter">Show All</button>
-            <button class="btn btn-info" id="toggleAnalysisBtn" onclick="toggleIncomeAnalysisView()">View Income
-                Groups</button>
+            <div class="filter-group">
+                <label for="monthFilter"><i data-lucide="calendar" class="icon-inline"></i> Filter by Month</label>
+                <input type="month" id="monthFilter" />
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-secondary" id="clearFilter">Show All</button>
+                <button class="btn btn-info" id="toggleAnalysisBtn" onclick="toggleIncomeAnalysisView()">
+                    <i data-lucide="bar-chart-2" class="icon-inline"></i> View Income Groups
+                </button>
+            </div>
         </section>
 
         <!-- Income Analysis Section (Hidden by default) -->
         <section id="incomeAnalysis" class="income-analysis-section" style="display: none;">
             <div class="card analysis-card">
-                <h2>Income Analysis</h2>
+                <div class="card-header-internal">
+                    <h2>Income Analysis</h2>
+                    <span class="badge badge-info">Smart Grouping</span>
+                </div>
                 <div id="analysisContainer">
                     <!-- Dynamic Content -->
                 </div>
             </div>
         </section>
 
-        <!-- Add Transaction Form -->
-        <section class="form-section">
-            <div class="card form-card">
-                <h2>Add Transaction</h2>
-                <form id="transactionForm">
-                    <div class="form-group">
-                        <label for="amount">Amount (₹)</label>
-                        <input type="number" id="amount" step="0.01" min="0.01" required>
+        <!-- Add Transaction & History Grid -->
+        <div class="app-grid">
+            <!-- Add Transaction Form -->
+            <section class="form-section">
+                <div class="card form-card">
+                    <div class="card-header-internal">
+                        <h2>New Transaction</h2>
                     </div>
+                    <form id="transactionForm">
+                        <div class="form-group">
+                            <label for="amount">Amount (₹)</label>
+                            <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="type">Type</label>
-                        <select id="type" required>
-                            <option value="">Select Type</option>
-                            <option value="income">Income</option>
-                            <option value="expense">Expense</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <div class="select-wrapper">
+                                <select id="type" required class="modern-select">
+                                    <option value="">Select Type</option>
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="select-icon"></i>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="reason">Reason</label>
-                        <input type="text" id="reason" placeholder="e.g., Salary, Groceries, Rent" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="reason">Description</label>
+                            <input type="text" id="reason" placeholder="e.g., Salary, Groceries" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Add Transaction</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Transaction History -->
-        <section class="history-section" id="historySection">
-            <div class="card history-card">
-                <h2>Transaction History</h2>
-
-                <!-- Empty State -->
-                <div id="emptyState" class="empty-state">
-                    <p>📋 No transactions yet. Add your first transaction above!</p>
+                        <button type="submit" class="btn btn-primary btn-block">Add Transaction</button>
+                    </form>
                 </div>
+            </section>
 
-                <!-- Transaction Table -->
-                <div id="tableContainer" class="table-container" style="display: none;">
-                    <table id="transactionTable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Reason</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactionBody">
-                        </tbody>
-                    </table>
+            <!-- Transaction History -->
+            <section class="history-section" id="historySection">
+                <div class="card history-card">
+                    <div class="card-header-internal">
+                        <h2>Recent History</h2>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state">
+                        <div class="empty-icon-container">
+                            <i data-lucide="clipboard-list"></i>
+                        </div>
+                        <p>No transactions yet.</p>
+                        <span>Add your first income or expense to get started!</span>
+                    </div>
+
+                    <!-- Transaction Table -->
+                    <div id="tableContainer" class="table-container" style="display: none;">
+                        <table id="transactionTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionBody">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
+    <!-- Initialize Lucide Icons -->
+    <script>
+        window.addEventListener('load', function () {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 
