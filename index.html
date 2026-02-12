@@ -18,9 +18,13 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar container">
-        <div class="brand">
-            <i data-lucide="wallet" class="brand-icon"></i>
-            <span class="brand-name">BudgetFlow</span>
+        <div class="brand-wrapper">
+            <button class="private-budget-trigger" id="privateBudgetBtn" title="Private Budget">
+                <i data-lucide="wallet" class="brand-icon"></i>
+            </button>
+            <div class="brand">
+                <span class="brand-name">BudgetFlow</span>
+            </div>
         </div>
     </nav>
 
@@ -247,6 +251,54 @@
                     </div>
                 </div>
             </section>
+        </div>
+    </div>
+
+    <!-- PIN Modal for Private Budget -->
+    <div id="pinModal" class="modal modal-overlay" style="display: none;">
+        <div class="modal-content pin-modal">
+            <button id="closePinModal" class="modal-close">
+                <i data-lucide="x" class="icon-sm"></i>
+            </button>
+            <div class="modal-header">
+                <h2 id="pinModalTitle">Set Up Private Budget PIN</h2>
+                <p id="pinModalMessage">Create a 6-digit PIN to secure your private budget</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="pinError" class="pin-error" style="display: none; color: #ef4444; margin-bottom: 1rem; text-align: center;"></div>
+
+            <!-- PIN Input -->
+            <div class="pin-input-group">
+                <label for="pin1">Enter PIN</label>
+                <div class="pin-inputs">
+                    <input type="text" id="pin1" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pin2" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pin3" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pin4" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pin5" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pin6" class="pin-input" maxlength="1" inputmode="numeric" />
+                </div>
+            </div>
+
+            <!-- PIN Confirmation (only shown when setting new PIN) -->
+            <div id="pinConfirmContainer" class="pin-input-group" style="display: none;">
+                <label for="pinConfirm1">Confirm PIN</label>
+                <div class="pin-inputs">
+                    <input type="text" id="pinConfirm1" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pinConfirm2" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pinConfirm3" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pinConfirm4" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pinConfirm5" class="pin-input" maxlength="1" inputmode="numeric" />
+                    <input type="text" id="pinConfirm6" class="pin-input" maxlength="1" inputmode="numeric" />
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="modal-actions">
+                <button id="cancelPinBtn" class="btn btn-secondary">Cancel</button>
+                <button id="submitPinBtn" class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </div>
 

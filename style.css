@@ -57,6 +57,36 @@ html {
     --spacing-2xl: 4rem;
 }
 
+/* === Private Budget Mode Color Palette === */
+body.private-mode {
+    /* Private mode uses a purple/violet theme */
+    --primary: #7c3aed;
+    --secondary: #a855f7;
+    --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+
+    /* Backgrounds - Purple tinted */
+    --bg-main: #faf5ff;
+    --bg-card: #fef5ff;
+
+    /* Text Colors */
+    --text-primary: #3f0f5f;
+    --text-secondary: #6b5b7f;
+    --text-muted: #9b8fad;
+
+    /* Status Colors */
+    --success: #06b6d4;
+    --danger: #ec4899;
+    --warning: #d97706;
+    --info: #8b5cf6;
+
+    /* Borders & Shadows */
+    --border-color: #ede9fe;
+    --shadow-sm: 0 1px 2px 0 rgba(124, 58, 237, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(124, 58, 237, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(124, 58, 237, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(124, 58, 237, 0.12);
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg-main);
@@ -77,18 +107,57 @@ body {
 .navbar {
     padding: var(--spacing-md) 0;
     margin-bottom: var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.private-budget-trigger {
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: var(--radius-md);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.private-budget-trigger:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.private-budget-trigger.active {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.3);
+}
+
+.private-budget-trigger i {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.current-member-display.private-mode-active {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    color: white;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-}
-
-.brand-icon {
-    width: 32px;
-    height: 32px;
-    color: var(--primary);
 }
 
 .brand-name {
@@ -862,5 +931,159 @@ tbody tr:last-child td {
 
     .member-selector-header h3 {
         font-size: 1.125rem;
+    }
+}
+
+/* === PIN Modal Styles === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+}
+
+.pin-modal {
+    max-width: 450px;
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.modal-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.pin-input-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.pin-input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.pin-inputs {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.pin-input {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    background: var(--bg-main);
+}
+
+.pin-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.pin-input:hover {
+    border-color: var(--secondary);
+}
+
+.pin-error {
+    background: #fecaca;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    margin-top: var(--spacing-lg);
+}
+
+.modal-actions .btn {
+    flex: 1;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+        padding: var(--spacing-md);
+    }
+
+    .pin-inputs {
+        gap: 0.5rem;
+    }
+
+    .pin-input {
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions .btn {
+        width: 100%;
     }
 }
