@@ -736,6 +736,33 @@ function enterPrivateMode() {
         heroSubtext.textContent = 'Manage your personal income and expenses in a password-protected private dashboard. Secure, seamless, and smart';
     }
 
+    // Update Features Section for Private Mode
+    const featureTitle1 = document.getElementById('featureTitle1');
+    const featureDesc1 = document.getElementById('featureDesc1');
+    const featureTitle2 = document.getElementById('featureTitle2');
+    const featureDesc2 = document.getElementById('featureDesc2');
+    const featureTitle3 = document.getElementById('featureTitle3');
+    const featureDesc3 = document.getElementById('featureDesc3');
+    const featureTitle4 = document.getElementById('featureTitle4');
+    const featureDesc4 = document.getElementById('featureDesc4');
+    const featureIcon1 = document.getElementById('featureIcon1');
+
+    if (featureTitle1) featureTitle1.textContent = 'Personal Budget Space';
+    if (featureDesc1) featureDesc1.textContent = 'Track your individual income, expenses, and savings separately in a secure, password-protected environment.';
+    if (featureIcon1) featureIcon1.setAttribute('data-lucide', 'shield');
+
+    if (featureTitle2) featureTitle2.textContent = 'Smart Financial Insights';
+    if (featureDesc2) featureDesc2.textContent = 'Get clear visual breakdowns of your spending patterns and income flow to understand where your money goes.';
+
+    if (featureTitle3) featureTitle3.textContent = 'Source-Based Tracking';
+    if (featureDesc3) featureDesc3.textContent = 'Automatically categorize expenses based on their income source for better clarity and control.';
+
+    if (featureTitle4) featureTitle4.textContent = 'Complete Transaction History';
+    if (featureDesc4) featureDesc4.textContent = 'Access fully searchable records with easy monthly filters to review and analyze past activity.';
+
+    // Refresh icons
+    if (window.lucide) lucide.createIcons();
+
     // Hide member selector controls
     const memberSelectorSection = document.querySelector('.member-selector-section');
     if (memberSelectorSection) {
@@ -769,6 +796,33 @@ function exitPrivateMode() {
         heroTitle.innerHTML = 'Manage Your Family Finances with <span class="gradient-text">Clarity.</span>';
         heroSubtext.textContent = 'Track income, expenses, and savings for every family member in one beautiful dashboard. Simple, secure, and smart.';
     }
+
+    // Update Features Section back to Family Mode
+    const featureTitle1 = document.getElementById('featureTitle1');
+    const featureDesc1 = document.getElementById('featureDesc1');
+    const featureTitle2 = document.getElementById('featureTitle2');
+    const featureDesc2 = document.getElementById('featureDesc2');
+    const featureTitle3 = document.getElementById('featureTitle3');
+    const featureDesc3 = document.getElementById('featureDesc3');
+    const featureTitle4 = document.getElementById('featureTitle4');
+    const featureDesc4 = document.getElementById('featureDesc4');
+    const featureIcon1 = document.getElementById('featureIcon1');
+
+    if (featureTitle1) featureTitle1.textContent = 'Multi-Member Budgeting';
+    if (featureDesc1) featureDesc1.textContent = 'Separate tracking for Mom, Dad, and Kids with instant switching.';
+    if (featureIcon1) featureIcon1.setAttribute('data-lucide', 'users');
+
+    if (featureTitle2) featureTitle2.textContent = 'Smart Analysis';
+    if (featureDesc2) featureDesc2.textContent = 'Visual breakdown of income streams and spending habits.';
+
+    if (featureTitle3) featureTitle3.textContent = 'Income-Based Insights';
+    if (featureDesc3) featureDesc3.textContent = 'Group expenses automatically by their funding source.';
+
+    if (featureTitle4) featureTitle4.textContent = 'Full History';
+    if (featureDesc4) featureDesc4.textContent = 'Searchable transaction logs with monthly filtering.';
+
+    // Refresh icons
+    if (window.lucide) lucide.createIcons();
 
     // Show member selector controls
     const memberSelectorSection = document.querySelector('.member-selector-section');
