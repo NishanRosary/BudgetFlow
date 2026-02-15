@@ -728,6 +728,14 @@ function enterPrivateMode() {
     currentMemberDisplayParent.classList.add('private-mode-active');
     currentMemberDisplay.textContent = '🔒 Private Budget';
 
+    // Update Hero Section for Private Mode
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtext = document.getElementById('heroSubtext');
+    if (heroTitle && heroSubtext) {
+        heroTitle.innerHTML = 'Your Personal Finance <span class="gradient-text">Vault.</span>';
+        heroSubtext.textContent = 'Manage your personal income and expenses in a password-protected private dashboard. Secure, seamless, and smart';
+    }
+
     // Hide member selector controls
     const memberSelectorSection = document.querySelector('.member-selector-section');
     if (memberSelectorSection) {
@@ -753,6 +761,14 @@ function exitPrivateMode() {
     const currentMemberDisplayParent = currentMemberDisplay.parentElement;
     currentMemberDisplayParent.classList.remove('private-mode-active');
     updateCurrentMemberDisplay();
+
+    // Update Hero Section back to Family Mode
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtext = document.getElementById('heroSubtext');
+    if (heroTitle && heroSubtext) {
+        heroTitle.innerHTML = 'Manage Your Family Finances with <span class="gradient-text">Clarity.</span>';
+        heroSubtext.textContent = 'Track income, expenses, and savings for every family member in one beautiful dashboard. Simple, secure, and smart.';
+    }
 
     // Show member selector controls
     const memberSelectorSection = document.querySelector('.member-selector-section');
