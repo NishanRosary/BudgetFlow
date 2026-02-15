@@ -57,34 +57,95 @@ html {
     --spacing-2xl: 4rem;
 }
 
-/* === Private Budget Mode Color Palette === */
 body.private-mode {
-    /* Private mode uses a purple/violet theme */
-    --primary: #7c3aed;
-    --secondary: #a855f7;
-    --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    /* Premium Dark Theme Palette */
+    --primary: #a78bfa;
+    --secondary: #818cf8;
+    --accent-gradient: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
 
-    /* Backgrounds - Purple tinted */
-    --bg-main: #faf5ff;
-    --bg-card: #fef5ff;
+    /* Backgrounds - Deep Slate */
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
 
-    /* Text Colors */
-    --text-primary: #3f0f5f;
-    --text-secondary: #6b5b7f;
-    --text-muted: #9b8fad;
+    /* Text Colors - High Contrast for Dark Mode */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
 
-    /* Status Colors */
-    --success: #06b6d4;
-    --danger: #ec4899;
-    --warning: #d97706;
-    --info: #8b5cf6;
+    /* Status Colors - Vibrant for Dark Mode */
+    --success: #34d399;
+    --danger: #fb7185;
+    --warning: #fbbf24;
+    --info: #38bdf8;
 
-    /* Borders & Shadows */
-    --border-color: #ede9fe;
-    --shadow-sm: 0 1px 2px 0 rgba(124, 58, 237, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(124, 58, 237, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(124, 58, 237, 0.08);
-    --shadow-xl: 0 20px 25px -5px rgba(124, 58, 237, 0.12);
+    /* Borders & Shadows - Subtle and Softened */
+    --border-color: #334155;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+}
+
+/* Dark Mode Overrides for Specific Components */
+body.private-mode thead {
+    background: #334155;
+}
+
+body.private-mode tbody tr:hover {
+    background: #334155;
+}
+
+body.private-mode .analysis-group {
+    background: #1e293b;
+    border-color: var(--border-color);
+}
+
+body.private-mode .group-summary {
+    background: #334155;
+}
+
+body.private-mode .empty-icon-container {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+}
+
+body.private-mode .form-group input,
+body.private-mode .form-group select {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+body.private-mode .form-group input:focus,
+body.private-mode .form-group select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+}
+
+body.private-mode .modal-content {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+}
+
+body.private-mode .pin-input {
+    background: #334155;
+    border-color: #475569;
+    color: #f8fafc;
+}
+
+body.private-mode .badge-info {
+    background: rgba(56, 189, 248, 0.2);
+    color: #38bdf8;
+}
+
+body.private-mode .type-badge.income {
+    background: rgba(52, 211, 153, 0.2);
+    color: #34d399;
+}
+
+body.private-mode .type-badge.expense {
+    background: rgba(251, 113, 133, 0.2);
+    color: #fb7185;
 }
 
 body {
